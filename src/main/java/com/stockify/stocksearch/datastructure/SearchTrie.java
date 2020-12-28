@@ -84,19 +84,11 @@ public class SearchTrie {
 
         NodeStack searchStack = new NodeStack();
         searchStack.pushAllChildren(node, 0);
-
-        char[] inPrefix = new char[10];
-        int prefixPosition = -1;
-
         LinkedNode next = searchStack.pop();
+
         while (next != null) {
             searchStack.pushAllChildren(next.getNode(), next.getLevel() + 1);
-            if (next.getLevel() <= prefixPosition) {
-                prefixPosition = next.getLevel() - 1;
-            }
-            inPrefix[++prefixPosition] = next.getNode().getC();
             if (next.getNode().isValidSymbol()) {
-                String suffix = String.valueOf(inPrefix, 0, prefixPosition + 1);
                 returnSymbols.add(next.getNode().getSymbolDTO());
             }
             next = searchStack.pop();

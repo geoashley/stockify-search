@@ -1,7 +1,6 @@
 package com.stockify.stocksearch.datastructure;
 
 import com.stockify.stocksearch.dto.SymbolDTO;
-import com.stockify.stocksearch.util.DataTypeUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

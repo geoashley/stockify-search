@@ -8,19 +8,12 @@ This project server as the search for stock ticker symbols and names
 * Testing
     * Run `gradlew test` or right-click and "Run" the test or test directory.
 * Packaging
-    * Run `gradlew :zip`, which creates an `addon-*.zip` file in your `build/distributions` directory. This can uploaded using the GWDC CLI.
 
 ## Source and Conventions
 
 * Java source is housed in the `src/main/java` directory. Beyond that, Addons should use these recommended conventions:
-    * The root package is `com/{partner name}/{addon name}`.
-    * The `Initializer` class is in the root package.
-    * REST resources are in an `api` package.
-    * DTOs are in a `dto` package.
 
 * Java test sources are housed in the `src/test/java` directory. Test classes should reside in the same package as the source file they test.
-
-* The Addon Properties file is in `src/main/gw`.
 
 ## Folders and Files
 

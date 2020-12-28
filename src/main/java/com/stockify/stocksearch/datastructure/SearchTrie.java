@@ -5,43 +5,48 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class SearchTrie {
-    private SearchTrieNode root;
-    private static SearchTrie _instance;
+    private SearchTrieNode _root;
+    private boolean _isNameSearch;
 
-    private SearchTrie() {
-        root = new SearchTrieNode();
-    }
-
-    public static SearchTrie getInstance(){
-        if(_instance == null){
-            _instance = new SearchTrie();
-        }
-        return _instance;
+    public SearchTrie(boolean nameSearch) {
+        _root = new SearchTrieNode();
+        _isNameSearch = nameSearch;
     }
 
     public void reset(){
-        _instance =null;
+        _root = new SearchTrieNode();
     }
 
     // Inserts a word into the trie.
     public boolean insert(SymbolDTO symbolDTO) {
-        String symbol = symbolDTO.getSymbol();
-        SearchTrieNode node = root;
-        int len = symbol.length();
+        String word = symbolDTO.getSymbol();
+        if(_isNameSearch){
+            word = symbolDTO.getSecurityName();
+        }
+        SearchTrieNode node = insertToTrie( word);
+        node.setValidSymbol(true);
+        node.setSymbolDTO(symbolDTO);
+        return true;
+    }
+
+    private SearchTrieNode insertToTrie(String word){
+
+        SearchTrieNode node = _root;
+        int len = word.length();
         int i = 0;
         while (i < len) {
-            SearchTrieNode next = node.getNext(symbol.charAt(i));
+            SearchTrieNode next = node.getNext(word.charAt(i));
             if (next == null) {
-                node = node.setNext(symbol.charAt(i));
+                node = node.setNext(word.charAt(i));
             } else {
                 node = next;
             }
             i++;
         }
-        node.setValidSymbol(true);
-        node.setSymbolDTO(symbolDTO);
-        return true;
+        return node;
+
     }
 
     // Search a word in the trie.
@@ -56,7 +61,7 @@ public class SearchTrie {
 
     // Traverse the trie with the input word.
     public SearchTrieNode traverse(String word) {
-        SearchTrieNode node = root;
+        SearchTrieNode node = _root;
         int len = word.length();
         int i = 0;
         boolean searchEnd = false;
@@ -76,7 +81,7 @@ public class SearchTrie {
         List<SymbolDTO> returnSymbols = new ArrayList<>();
         SearchTrieNode node = traverse(prefix);
         if(node == null){
-            return null;
+            return returnSymbols;
         }
         if (node.isValidSymbol()) {
             returnSymbols.add(node.getSymbolDTO());

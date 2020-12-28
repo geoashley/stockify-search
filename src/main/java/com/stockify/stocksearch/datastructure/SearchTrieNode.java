@@ -11,7 +11,7 @@ public class SearchTrieNode {
     private SymbolDTO symbolDTO;
     // Initialize your data structure here.
     public SearchTrieNode() {
-        this.arr = new SearchTrieNode[28];
+        this.arr = new SearchTrieNode[53];
     }
     public SearchTrieNode(char ch) {
         this();
@@ -28,16 +28,50 @@ public class SearchTrieNode {
     }
 
     public int findCharIndex(char c){
-        if(c=='.'){
-            return 26;
+        if(Character.isDigit(c)){
+            return c-'0';
         }
-        if(c=='/'){
-            return 27;
+        int charOffset = 10;
+        switch (c){
+            case '.':
+                return charOffset+26;
+            case '/':
+                return charOffset+27;
+            case ' ':
+                return charOffset+28;
+            case '(':
+                return charOffset+29;
+            case ')':
+                return charOffset+30;
+            case '%':
+                return charOffset+31;
+            case '-':
+                return charOffset+32;
+            case '$':
+                return charOffset+33;
+            case '&':
+                return charOffset+34;
+            case '\'':
+                return charOffset+35;
+            case ';':
+                return charOffset+36;
+            case '?':
+                return charOffset+37;
+            case '!':
+                return charOffset+38;
+            case '@':
+                return charOffset+39;
+            case '#':
+                return charOffset+40;
+            case '*':
+                return charOffset+41;
+            case ':':
+                return charOffset+42;
         }
         if(!Character.isAlphabetic(c)){
             return -1;
         }
-        return( Character.toUpperCase(c) - 'A');
+        return( charOffset + (Character.toUpperCase(c) - 'A'));
     }
 
     @Override

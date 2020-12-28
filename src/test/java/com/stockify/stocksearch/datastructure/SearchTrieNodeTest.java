@@ -10,12 +10,12 @@ class SearchTrieNodeTest {
 
     @Test
     public void indexTest(){
-        assertEquals(0,node.findCharIndex('A'));
-        assertEquals(25,node.findCharIndex('Z'));
-        assertEquals(0,node.findCharIndex('a'));
-        assertEquals(25,node.findCharIndex('z'));
-        assertEquals(26,node.findCharIndex('.'));
-        assertEquals(-1,node.findCharIndex('4'));
+        assertEquals(10,node.findCharIndex('A'));
+        assertEquals(35,node.findCharIndex('Z'));
+        assertEquals(10,node.findCharIndex('a'));
+        assertEquals(35,node.findCharIndex('z'));
+        assertEquals(36,node.findCharIndex('.'));
+        assertEquals(4,node.findCharIndex('4'));
     }
 
 }

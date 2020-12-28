@@ -1,5 +1,6 @@
 package com.stockify.stocksearch.file;
 
+import com.stockify.stocksearch.datastructure.SearchHelper;
 import com.stockify.stocksearch.datastructure.SearchTrie;
 import com.stockify.stocksearch.dto.SymbolDTO;
 import com.stockify.stocksearch.util.DataTypeUtil;
@@ -42,8 +43,8 @@ public class NasdaqScreenerFileOps extends BaseFileOps{
                 .build();
     }
     public void insertToTrie(String[] tokens){
-        SearchTrie trie = SearchTrie.getInstance();
-        trie.insert(mapNewSymbol(tokens));
+        SearchHelper trieHelper = SearchHelper.getInstance();
+        trieHelper.insert(mapNewSymbol(tokens));
 
 
     }

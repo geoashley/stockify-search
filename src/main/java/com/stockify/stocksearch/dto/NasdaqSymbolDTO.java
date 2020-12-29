@@ -16,8 +16,6 @@ public class NasdaqSymbolDTO {
     private String ETF;
     private String nextShares;
 
-
-
     public static class Builder{
         private String symbol;
         private String securityName;

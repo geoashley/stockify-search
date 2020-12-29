@@ -5,7 +5,6 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class SearchTrie {
     private SearchTrieNode _root;
     private boolean _isNameSearch;

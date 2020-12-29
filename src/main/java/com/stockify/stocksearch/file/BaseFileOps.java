@@ -1,9 +1,7 @@
 package com.stockify.stocksearch.file;
 
 import com.stockify.stocksearch.controllers.ExceptionProperties;
-import com.stockify.stocksearch.datastructure.SearchTrie;
 import com.stockify.stocksearch.exception.StockifyException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -60,7 +58,6 @@ public abstract class BaseFileOps {
             throw new StockifyException(e.getMessage(), ExceptionProperties.Unknown);
         }
     }
-
 
     public String[] parseCSV(String s) {
         if(s == null){

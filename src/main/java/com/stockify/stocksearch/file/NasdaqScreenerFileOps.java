@@ -1,30 +1,28 @@
 package com.stockify.stocksearch.file;
 
 import com.stockify.stocksearch.datastructure.SearchHelper;
-import com.stockify.stocksearch.datastructure.SearchTrie;
 import com.stockify.stocksearch.dto.SymbolDTO;
 import com.stockify.stocksearch.util.DataTypeUtil;
 
-public class NasdaqScreenerFileOps extends BaseFileOps{
+public class NasdaqScreenerFileOps extends BaseFileOps {
 
-    private static final String HEADER_STRING ="Symbol,Name,Last Sale,Net Change,% Change,Market Cap,Country,IPO Year,Volume,Sector,Industry";
+    private static final String HEADER_STRING = "Symbol,Name,Last Sale,Net Change,% Change,Market Cap,Country,IPO Year,Volume,Sector,Industry";
     private static final String FOOTER_STRING = "";
 
-
-    public String getHeader(){
+    public String getHeader() {
         return HEADER_STRING;
     }
 
-    public String getFooter(){
+    public String getFooter() {
         return FOOTER_STRING;
     }
 
     public String[] parseCSV(String s) {
-        if(s == null){
+        if (s == null) {
             return null;
         }
         String CSV_PATTERN = ",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)";
-        return s.split(CSV_PATTERN,-1);
+        return s.split(CSV_PATTERN, -1);
     }
 
     public SymbolDTO mapNewSymbol(String[] tokens) {
@@ -42,12 +40,9 @@ public class NasdaqScreenerFileOps extends BaseFileOps{
                 .withIndustry(DataTypeUtil.nonNullString(tokens[10]).trim())
                 .build();
     }
-    public void insertToTrie(String[] tokens){
+
+    public void insertToTrie(String[] tokens) {
         SearchHelper trieHelper = SearchHelper.getInstance();
         trieHelper.insert(mapNewSymbol(tokens));
-
-
     }
-
-
 }

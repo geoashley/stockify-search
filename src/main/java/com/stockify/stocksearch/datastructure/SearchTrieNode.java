@@ -13,6 +13,7 @@ public class SearchTrieNode {
     public SearchTrieNode() {
         this.arr = new SearchTrieNode[53];
     }
+
     public SearchTrieNode(char ch) {
         this();
         c = ch;

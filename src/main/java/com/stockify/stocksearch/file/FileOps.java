@@ -1,6 +1,6 @@
 package com.stockify.stocksearch.file;
-import com.stockify.stocksearch.dto.NasdaqSymbolDTO;
 
+import com.stockify.stocksearch.dto.NasdaqSymbolDTO;
 
 public class FileOps extends BaseFileOps {
 

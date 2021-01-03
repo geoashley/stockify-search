@@ -1,5 +1,6 @@
 package com.stockify.stocksearch.controllers;
 
+import com.stockify.stocksearch.datastructure.IndustryAggregate;
 import com.stockify.stocksearch.datastructure.SearchHelper;
 import com.stockify.stocksearch.dto.SearchDTO;
 import com.stockify.stocksearch.dto.SymbolDTO;
@@ -16,5 +17,10 @@ public class SearchController {
         Set<SymbolDTO> returnSet = helper.prefixSearch(symbol.toUpperCase(Locale.ROOT));
         return returnSet.stream().toArray(SymbolDTO[] ::new);
         //return returnSet;
+    }
+    @GetMapping(value = "/aggregate",produces = "application/json")
+    public Double getIndustryAggregate(@RequestParam(value = "industry") String industry, @RequestParam(value = "sector")String sector){
+        IndustryAggregate helper = IndustryAggregate.getInstance();
+        return helper.getAggregateMarketCap(industry+" "+sector);
     }
 }

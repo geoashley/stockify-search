@@ -11,6 +11,7 @@ class SearchHelperTest {
 
     @Test
     public void testHelper(){
+        SearchHelper.getInstance().reset();
         SearchHelper helper = SearchHelper.getInstance();
 
         SymbolDTO dto1 = SymbolDTO.SymbolDTOBuilder.aSymbolDTO()

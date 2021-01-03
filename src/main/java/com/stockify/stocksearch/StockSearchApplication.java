@@ -19,6 +19,7 @@ public class StockSearchApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/search").allowedOrigins("http://localhost:3000").allowedOrigins("https://localhost:3000");
+				registry.addMapping("/aggregate").allowedOrigins("http://localhost:3000").allowedOrigins("https://localhost:3000");
 			}
 		};
 	}

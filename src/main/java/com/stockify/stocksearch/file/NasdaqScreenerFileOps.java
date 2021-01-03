@@ -1,5 +1,6 @@
 package com.stockify.stocksearch.file;
 
+import com.stockify.stocksearch.datastructure.IndustryAggregate;
 import com.stockify.stocksearch.datastructure.SearchHelper;
 import com.stockify.stocksearch.dto.SymbolDTO;
 import com.stockify.stocksearch.util.DataTypeUtil;
@@ -16,6 +17,8 @@ public class NasdaqScreenerFileOps extends BaseFileOps {
     public String getFooter() {
         return FOOTER_STRING;
     }
+    IndustryAggregate agg = IndustryAggregate.getInstance();
+    SearchHelper trieHelper = SearchHelper.getInstance();
 
     public String[] parseCSV(String s) {
         if (s == null) {
@@ -42,7 +45,11 @@ public class NasdaqScreenerFileOps extends BaseFileOps {
     }
 
     public void insertToTrie(String[] tokens) {
-        SearchHelper trieHelper = SearchHelper.getInstance();
-        trieHelper.insert(mapNewSymbol(tokens));
+        SymbolDTO newSymbol = mapNewSymbol(tokens);
+        if(newSymbol.getSector()!=null && newSymbol.getIndustry() !=null){
+            System.out.println(newSymbol.getIndustry() +" "+ newSymbol.getSector());
+            agg.insert(newSymbol.getIndustry() +" "+ newSymbol.getSector(), newSymbol.getMarketCap());
+        }
+        trieHelper.insert(newSymbol);
     }
 }

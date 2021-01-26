@@ -1,13 +1,16 @@
 package com.stockify.stocksearch.datastructure;
 
+import com.stockify.stocksearch.dto.RelatedSymbolDTO;
+import com.stockify.stocksearch.dto.SymbolDTO;
 import com.stockify.stocksearch.util.DataTypeUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class IndustryAggregate {
     private static IndustryAggregate _instance;
-    private Map<String, MarketCap> _aggregateCache;
+    private Map<String, IndustryData> _aggregateCache;
 
     private IndustryAggregate() {
         _aggregateCache = new HashMap<>();
@@ -20,39 +23,41 @@ public class IndustryAggregate {
         return _instance;
     }
 
-    public void insert(String key, String amount) {
+    public void insert(SymbolDTO newSymbol) {
+        String key = newSymbol.getIndustry() + " "+newSymbol.getSector();
+        String amount = newSymbol.getMarketCap();
         if (!DataTypeUtil.isNumeric(amount) || key == null) {
             return;
         }
-        MarketCap entry = _aggregateCache.get(key);
+        IndustryData entry = _aggregateCache.get(key);
         if(entry == null){
-            _aggregateCache.put(key,new MarketCap(Double.parseDouble(amount)));
+            _aggregateCache.put(key,new IndustryData(newSymbol.getIndustry(),
+                                                  newSymbol.getSector(),
+                                                  newSymbol.getSymbol(),
+                                                  Double.parseDouble(amount)));
         }else{
-            entry.add(Double.parseDouble(amount));
+            entry.add(newSymbol.getSymbol(), Double.parseDouble(amount));
         }
     }
 
     public Double getAggregateMarketCap(String key){
-        MarketCap entry = _aggregateCache.get(key);
+        IndustryData entry = _aggregateCache.get(key);
         if(entry==null){
             return Double.valueOf(0);
         }
-        return entry.marketCap;
+        return entry.getAggMarketCap();
     }
 
-
-    private static class MarketCap {
-        Double marketCap = (double) 0;
-
-        public MarketCap(Double inAmount){
-            marketCap = inAmount;
+    public List<RelatedSymbolDTO> getRelatedSymbols(String key, String symbol){
+        IndustryData entry = _aggregateCache.get(key);
+        if(entry==null){
+            return null;
         }
-
-        private void add( Double amount) {
-            marketCap += amount;
-
-        }
-
+        return entry.getRelatedSymbols(symbol);
     }
-
+    public void wrap() {
+        for (String key : _aggregateCache.keySet()) {
+            _aggregateCache.get(key).wrap();
+        }
+    }
 }

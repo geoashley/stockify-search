@@ -32,7 +32,7 @@ public class NasdaqScreenerFileOps extends BaseFileOps {
         return SymbolDTO.SymbolDTOBuilder.aSymbolDTO()
                 .withSymbol(DataTypeUtil.nonNullString(tokens[0]).trim())
                 .withSecurityName(DataTypeUtil.nonNullString(tokens[1]).trim())
-                .withLastSale(DataTypeUtil.nonNullString(tokens[2]).trim())
+                .withLastSale(DataTypeUtil.nonNullString(tokens[2]).replace("$","").trim())
                 .withNetChange(DataTypeUtil.nonNullString(tokens[3]).trim())
                 .withPercentChange(DataTypeUtil.nonNullString(tokens[4]).trim())
                 .withMarketCap(DataTypeUtil.nonNullString(tokens[5]).trim())
@@ -42,14 +42,21 @@ public class NasdaqScreenerFileOps extends BaseFileOps {
                 .withSector(DataTypeUtil.nonNullString(tokens[9]).trim())
                 .withIndustry(DataTypeUtil.nonNullString(tokens[10]).trim())
                 .build();
+
+
     }
 
     public void insertToTrie(String[] tokens) {
         SymbolDTO newSymbol = mapNewSymbol(tokens);
         if(newSymbol.getSector()!=null && newSymbol.getIndustry() !=null){
-            System.out.println(newSymbol.getIndustry() +" "+ newSymbol.getSector());
-            agg.insert(newSymbol.getIndustry() +" "+ newSymbol.getSector(), newSymbol.getMarketCap());
+            agg.insert(newSymbol);
         }
         trieHelper.insert(newSymbol);
+    }
+
+    @Override
+    public void trieWrap() {
+        super.trieWrap();
+        agg.wrap();
     }
 }

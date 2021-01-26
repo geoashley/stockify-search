@@ -52,7 +52,7 @@ public class NasdaqFileOpsTest {
         SymbolDTO newSymbol = new NasdaqScreenerFileOps().mapNewSymbol(tokens);
         assertEquals("AAL", newSymbol.getSymbol());
         assertEquals("American Airlines Group Inc. Common Stock", newSymbol.getSecurityName());
-        assertEquals("$15.66", newSymbol.getLastSale());
+        assertEquals("15.66", newSymbol.getLastSale());
         assertEquals("-0.23", newSymbol.getNetChange());
         assertEquals("-1.447%", newSymbol.getPercentChange());
         assertEquals("9564717865.00", newSymbol.getMarketCap());

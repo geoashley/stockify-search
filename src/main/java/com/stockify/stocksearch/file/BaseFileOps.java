@@ -42,6 +42,7 @@ public abstract class BaseFileOps {
                 }
 
             }
+            trieWrap();
             myReader.close();
             return noOfSymbols;
         }
@@ -68,9 +69,9 @@ public abstract class BaseFileOps {
     }
 
     public  void insertToTrie(String[] tokens){
-//        SearchTrie trie = SearchTrie.getInstance();
-//        trie.insert(tokens[0]);
     }
 
+    public  void trieWrap(){
+    }
 
 }

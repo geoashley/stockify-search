@@ -2,10 +2,11 @@ package com.stockify.stocksearch.controllers;
 
 import com.stockify.stocksearch.datastructure.IndustryAggregate;
 import com.stockify.stocksearch.datastructure.SearchHelper;
-import com.stockify.stocksearch.dto.SearchDTO;
+import com.stockify.stocksearch.dto.RelatedSymbolDTO;
 import com.stockify.stocksearch.dto.SymbolDTO;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -23,4 +24,10 @@ public class SearchController {
         IndustryAggregate helper = IndustryAggregate.getInstance();
         return helper.getAggregateMarketCap(industry+" "+sector);
     }
+    @GetMapping(value = "/related",produces = "application/json")
+    public List<RelatedSymbolDTO> getIndustryRelated(@RequestParam(value = "industry") String industry, @RequestParam(value = "sector")String sector,  @RequestParam(value = "symbol")String symbol){
+        IndustryAggregate helper = IndustryAggregate.getInstance();
+        return helper.getRelatedSymbols(industry+" "+sector, symbol);
+    }
+
 }

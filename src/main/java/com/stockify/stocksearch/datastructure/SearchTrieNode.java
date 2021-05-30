@@ -11,7 +11,7 @@ public class SearchTrieNode {
     private SymbolDTO symbolDTO;
     // Initialize your data structure here.
     public SearchTrieNode() {
-        this.arr = new SearchTrieNode[53];
+        this.arr = new SearchTrieNode[54];
     }
 
     public SearchTrieNode(char ch) {
@@ -68,6 +68,8 @@ public class SearchTrieNode {
                 return charOffset+41;
             case ':':
                 return charOffset+42;
+            case '^':
+                return charOffset+43;
         }
         if(!Character.isAlphabetic(c)){
             return -1;

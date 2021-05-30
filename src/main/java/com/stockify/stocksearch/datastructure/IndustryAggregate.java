@@ -7,6 +7,7 @@ import com.stockify.stocksearch.util.DataTypeUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class IndustryAggregate {
     private static IndustryAggregate _instance;
@@ -34,9 +35,11 @@ public class IndustryAggregate {
             _aggregateCache.put(key,new IndustryData(newSymbol.getIndustry(),
                                                   newSymbol.getSector(),
                                                   newSymbol.getSymbol(),
-                                                  Double.parseDouble(amount)));
+                                                  newSymbol.getSecurityName(),
+                                                  Double.parseDouble(amount),
+                                                   newSymbol.getLastSale()));
         }else{
-            entry.add(newSymbol.getSymbol(), Double.parseDouble(amount));
+            entry.add(newSymbol.getSymbol(), newSymbol.getSecurityName(),Double.parseDouble(amount),newSymbol.getLastSale() );
         }
     }
 
@@ -48,7 +51,7 @@ public class IndustryAggregate {
         return entry.getAggMarketCap();
     }
 
-    public List<RelatedSymbolDTO> getRelatedSymbols(String key, String symbol){
+    public Set<RelatedSymbolDTO> getRelatedSymbols(String key, String symbol){
         IndustryData entry = _aggregateCache.get(key);
         if(entry==null){
             return null;

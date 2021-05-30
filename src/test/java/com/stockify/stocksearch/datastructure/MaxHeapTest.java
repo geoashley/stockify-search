@@ -12,11 +12,11 @@ class MaxHeapTest {
     @Test
     public void testSort(){
         MaxHeap<RelatedSymbolDTO> testHeap = new MaxHeap<>(new RelatedSymbolDTO[5]);
-        testHeap.insert(new RelatedSymbolDTO("abc", 30.0));
-        testHeap.insert(new RelatedSymbolDTO("bbc", 10.0));
-        testHeap.insert(new RelatedSymbolDTO("cbc", 40.0));
-        testHeap.insert(new RelatedSymbolDTO("dbc", 5.0));
-        testHeap.insert(new RelatedSymbolDTO("ebc", 7.0));
+        testHeap.insert(new RelatedSymbolDTO("abc", "", 30.0,""));
+        testHeap.insert(new RelatedSymbolDTO("bbc", "",10.0,""));
+        testHeap.insert(new RelatedSymbolDTO("cbc", "",40.0,""));
+        testHeap.insert(new RelatedSymbolDTO("dbc","", 5.0,""));
+        testHeap.insert(new RelatedSymbolDTO("ebc","", 7.0,""));
         RelatedSymbolDTO[] arr = testHeap.sort();
 
         System.out.println(arr);
@@ -30,18 +30,18 @@ class MaxHeapTest {
     @Test
     public void testResizeAndSort(){
         MaxHeap<RelatedSymbolDTO> testHeap = new MaxHeap<>(new RelatedSymbolDTO[5]);
-        testHeap.insert(new RelatedSymbolDTO("abc", 30.0));
-        testHeap.insert(new RelatedSymbolDTO("bbc", 10.0));
-        testHeap.insert(new RelatedSymbolDTO("cbc", 40.0));
-        testHeap.insert(new RelatedSymbolDTO("dbc", 5.0));
-        testHeap.insert(new RelatedSymbolDTO("ebc", 7.0));
+        testHeap.insert(new RelatedSymbolDTO("abc","", 30.0,""));
+        testHeap.insert(new RelatedSymbolDTO("bbc", "",10.0,""));
+        testHeap.insert(new RelatedSymbolDTO("cbc", "",40.0,""));
+        testHeap.insert(new RelatedSymbolDTO("dbc","", 5.0,""));
+        testHeap.insert(new RelatedSymbolDTO("ebc", "",7.0,""));
 
-        testHeap.insert(new RelatedSymbolDTO("fbc", 3.0));
-        testHeap.insert(new RelatedSymbolDTO("gbc", 100.0));
-        testHeap.insert(new RelatedSymbolDTO("hbc", 4.0));
-        testHeap.insert(new RelatedSymbolDTO("ibc", 50.0));
-        testHeap.insert(new RelatedSymbolDTO("jbc", 70.0));
-        testHeap.insert(new RelatedSymbolDTO("kbc", 60.0));
+        testHeap.insert(new RelatedSymbolDTO("fbc","", 3.0,""));
+        testHeap.insert(new RelatedSymbolDTO("gbc", "",100.0,""));
+        testHeap.insert(new RelatedSymbolDTO("hbc","", 4.0,""));
+        testHeap.insert(new RelatedSymbolDTO("ibc", "",50.0,""));
+        testHeap.insert(new RelatedSymbolDTO("jbc","", 70.0,""));
+        testHeap.insert(new RelatedSymbolDTO("kbc", "",60.0,""));
 
         RelatedSymbolDTO[] arr = testHeap.sort();
 

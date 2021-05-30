@@ -25,9 +25,10 @@ public class SearchController {
         return helper.getAggregateMarketCap(industry+" "+sector);
     }
     @GetMapping(value = "/related",produces = "application/json")
-    public List<RelatedSymbolDTO> getIndustryRelated(@RequestParam(value = "industry") String industry, @RequestParam(value = "sector")String sector,  @RequestParam(value = "symbol")String symbol){
+    public RelatedSymbolDTO[] getIndustryRelated(@RequestParam(value = "industry") String industry, @RequestParam(value = "sector")String sector,  @RequestParam(value = "symbol")String symbol){
         IndustryAggregate helper = IndustryAggregate.getInstance();
-        return helper.getRelatedSymbols(industry+" "+sector, symbol);
+        Set<RelatedSymbolDTO> returnSet =  helper.getRelatedSymbols(industry+" "+sector, symbol);
+        return returnSet.stream().toArray(RelatedSymbolDTO[] ::new);
     }
 
 }

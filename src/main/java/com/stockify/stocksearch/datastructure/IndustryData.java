@@ -4,9 +4,7 @@ package com.stockify.stocksearch.datastructure;
 
 import com.stockify.stocksearch.dto.RelatedSymbolDTO;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class IndustryData {
 
@@ -24,19 +22,19 @@ public class IndustryData {
         return aggMarketCap;
     }
 
-    public IndustryData(String inIndustry, String inSector, String inSymbol, Double inAmount) {
+    public IndustryData(String inIndustry, String inSector, String inSymbol, String company,Double inAmount, String lastSale) {
         sector = inSector;
         industry = inIndustry;
         symbols.add(inSymbol);
         aggMarketCap = inAmount;
         heap = new MaxHeap<>(new RelatedSymbolDTO[heapInitialSize]);
-        heap.insert(new RelatedSymbolDTO(inSymbol, inAmount));
+        heap.insert(new RelatedSymbolDTO(inSymbol, company, inAmount, lastSale));
     }
 
-    public void add(String inSymbol, Double amount) {
+    public void add(String inSymbol, String company, Double amount,String lastSale) {
         symbols.add(inSymbol);
         aggMarketCap += amount;
-        heap.insert(new RelatedSymbolDTO(inSymbol, amount));
+        heap.insert(new RelatedSymbolDTO(inSymbol, company, amount,lastSale));
     }
 
     public void wrap(){
@@ -46,13 +44,13 @@ public class IndustryData {
         heap = null;
     }
 
-    public List<RelatedSymbolDTO> getRelatedSymbols(String symbol) {
+    public Set<RelatedSymbolDTO> getRelatedSymbols(String symbol) {
 
         if(symbolMap ==null){
             return null;
         }
 
-        List<RelatedSymbolDTO> related = new ArrayList<>();
+        Set<RelatedSymbolDTO> related = new HashSet<>();
         Integer indx = symbolMap.get(symbol);
         if(indx>=0 && indx<symbolListSize){
             if(indx != (symbolListSize-1)){
@@ -63,6 +61,19 @@ public class IndustryData {
             }
             if(indx+1 < symbolListSize){
                 related.add(sortedList[indx+1]);
+            }
+
+            if(indx-2 > 0){
+                related.add(sortedList[indx-2]);
+            }
+            if(indx+2 < symbolListSize){
+                related.add(sortedList[indx+2]);
+            }
+            if(indx-3 > 0){
+                related.add(sortedList[indx-3]);
+            }
+            if(indx+3 < symbolListSize){
+                related.add(sortedList[indx+3]);
             }
         }
 

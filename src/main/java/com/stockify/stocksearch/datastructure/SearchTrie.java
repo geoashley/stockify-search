@@ -31,20 +31,25 @@ public class SearchTrie {
     }
 
     private SearchTrieNode insertToTrie(String word){
-
-        SearchTrieNode node = _root;
-        int len = word.length();
-        int i = 0;
-        while (i < len) {
-            SearchTrieNode next = node.getNext(word.charAt(i));
-            if (next == null) {
-                node = node.setNext(word.charAt(i));
-            } else {
-                node = next;
+        try{
+            SearchTrieNode node = _root;
+            int len = word.length();
+            int i = 0;
+            while (i < len) {
+                SearchTrieNode next = node.getNext(word.charAt(i));
+                if (next == null) {
+                    node = node.setNext(word.charAt(i));
+                } else {
+                    node = next;
+                }
+                i++;
             }
-            i++;
+            return node;
+        }catch (ArrayIndexOutOfBoundsException arr){
+            System.out.println("index out of bound on "+word);
+            arr.printStackTrace();
+            throw arr;
         }
-        return node;
 
     }
 
